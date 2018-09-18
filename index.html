@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ExcelJS Class Example</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1>Hello, there</h1>
+                <hr>
+            </div>
+            <div class="col-sm-6">
+                Get the data to fill up spreadsheet: <br>
+                <button id="databtn" class="btn btn-default">Get Data</button>
+                <div id="mockdata"></div>
+                <button id="download" class="btn btn-default">Download file</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+    <script type="text/javascript" src="js/bundle-spreadsheet.js"></script>
+    <script type="text/javascript">
+        $('#databtn').click(() => {
+            $.ajax({
+                method: "GET",
+                url: "js/mockdata.json",
+                dataType: "json"
+            }).done((response) => $('#mockdata').html(JSON.stringify(response)) );
+        });
+
+        $('#download').click(() => {
+            $.ajax({
+                method: "GET",
+                url: "js/mockdata.json",
+                dataType: "json"
+            }).done((response) => {
+                let spreadsheet = new Spreadsheet(response);
+                    spreadsheet.generate();
+                    spreadsheet.setStaticCells({
+                        title : 'My new spreadsheet',
+                        disclosure: 'This is a disclosure'
+                    });
+                    spreadsheet.setDimensions({
+                        columnWidths:{
+                            'A' : '123'
+                        },
+                        rowHeights: {
+                            '1' : '321'
+                        }
+                    });
+                    spreadsheet.downloadFile();
+            });
+        });
+
+    </script>
+</body>
+</html>

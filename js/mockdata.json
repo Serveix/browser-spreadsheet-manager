@@ -1,0 +1,20 @@
+{
+    "result": {
+        "id": "1232",
+        "title": "Mock data",
+        "description": "For testing only",
+        "author":"Carlos Eli Lopez",
+        "rows":[
+            {
+                "id":"1",
+                "col1": "First column",
+                "col2": "Second column"
+            },
+            {
+                "id":"2",
+                "col1":"Second row and column",
+                "col2":"Second row and column"
+            }
+        ]
+    }
+}
